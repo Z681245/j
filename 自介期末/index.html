@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <title>許元柔的自我介紹</title>
+  <style>
+    .profile-pic {
+    width: 200px;         /* 或你要的寬度 */
+    border-radius: 50%;   /* 圓形 */
+    object-fit: cover;    /* 避免變形 */
+  }
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #2c3e50, #34495e);
+      color: white;
+      margin: 0;
+      padding: 20px;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: rgba(45, 55, 72, 0.9);
+      padding: 30px;
+      border-radius: 20px;
+      display: flex;
+      gap: 30px;
+    }
+
+    .profile-pic {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      background: #4a5568;
+      border: 3px solid white;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 60px;
+      color: #cbd5e0;
+    }
+
+    .profile-pic:hover {
+      background: #718096;
+    }
+
+    .content {
+      flex: 1;
+    }
+
+    h1, h2 {
+      color: #e2e8f0;
+      border-bottom: 2px solid #4a5568;
+      padding-bottom: 10px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: rgba(74, 85, 104, 0.3);
+      border-radius: 10px;
+      overflow: hidden;
+      margin-top: 20px;
+    }
+
+    table td, table th {
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 15px;
+    }
+
+    table th {
+      background: rgba(74, 85, 104, 0.5);
+      font-weight: bold;
+    }
+
+    table td a {
+      color: #81c7d4;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    table td a:hover {
+      text-decoration: underline;
+    }
+
+    /* 彈出視窗樣式 - 全螢幕版本 */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #2d3748; /* 改為實色背景 */
+      z-index: 1000;
+    }
+
+    .modal-content {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      background: #2d3748;
+      padding: 60px;
+      color: white;
+      overflow-y: auto;
+      font-size: 20px; /* 增加基礎字體大小 */
+      box-sizing: border-box;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      background: none;
+      border: none;
+      color: white;
+      font-size: 40px; /* 增加關閉按鈕大小 */
+      cursor: pointer;
+      z-index: 1001;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 20px; 
+      margin-bottom: 40px; 
+      justify-content: center; /* 讓按鈕居中 */
+    }
+
+    .tab-btn {
+      background: #4a5568;
+      border: none;
+      color: white;
+      padding: 20px 40px; /* 增加按鈕大小 */
+      border-radius: 30px; 
+      cursor: pointer;
+      font-size: 18px; /* 增加按鈕字體大小 */
+      font-weight: bold;
+    }
+
+    .tab-btn.active {
+      background: #81c7d4;
+      color: #2d3748;
+    }
+
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    .tab-content h3 {
+      font-size: 36px; /* 進一步增加標題字體大小 */
+      margin-bottom: 25px;
+    }
+
+    .tab-content p {
+      font-size: 24px; /* 進一步增加段落字體大小 */
+      margin-bottom: 30px;
+    }
+
+    .hobby-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); /* 進一步增加卡片大小 */
+      gap: 40px; /* 增加間距 */
+      margin-top: 40px;
+    }
+
+    .hobby-card {
+      background: rgba(45, 55, 72, 0.6);
+      border-radius: 15px; /* 從10px增加到15px */
+      padding: 30px; /* 從20px增加到30px */
+      text-align: center;
+      cursor: pointer;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .hobby-card:hover {
+      background: rgba(45, 55, 72, 0.8);
+    }
+
+    .hobby-image {
+      width: 180px; /* 進一步增加圖片大小 */
+      height: 180px; /* 進一步增加圖片大小 */
+      background: #4a5568;
+      border-radius: 20px; /* 增加圓角 */
+      margin: 0 auto 25px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #cbd5e0;
+      overflow: hidden; /* 新增：防止放大時圖片溢出 */
+    }
+
+    .hobby-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 20px; /* 配合增加的圓角 */
+      transition: transform 0.3s ease; /* 新增：平滑過渡效果 */
+    }
+
+    /* 新增：滑鼠懸停時圖片放大效果 */
+    .hobby-image:hover img {
+      transform: scale(1.1); /* 放大 1.1 倍 */
+    }
+
+    .hobby-title {
+      font-size: 26px; /* 進一步增加標題字體 */
+      font-weight: bold;
+      margin-bottom: 18px;
+    }
+
+    .hobby-description {
+      color: #a0aec0;
+      font-size: 18px; /* 進一步增加描述字體 */
+    }
+
+    /* 簡單名片 */
+    .simple-card {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #2d3748;
+      color: white;
+      padding: 30px;
+      border-radius: 15px;
+      text-align: center;
+      z-index: 1001;
+      border: 2px solid #4a5568;
+    }
+
+    .card-close {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      background: none;
+      border: none;
+      color: white;
+      font-size: 20px;
+      cursor: pointer;
+    }
+
+    /* 通知訊息 */
+    .notification {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: #4a5568;
+      color: white;
+      padding: 15px 20px;
+      border-radius: 10px;
+      z-index: 1001;
+      max-width: 300px;
+      display: none;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .hobby-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      /* 手機版的彈出視窗調整 */
+      .modal-content {
+        padding: 40px 30px;
+        font-size: 18px;
+      }
+      
+      .hobby-grid {
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 25px;
+      }
+      
+      .close-btn {
+        top: 15px;
+        right: 20px;
+        font-size: 35px;
+      }
+      
+      .tab-content h3 {
+        font-size: 28px;
+      }
+      
+      .tab-content p {
+        font-size: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- 其餘的 HTML 內容保持不變 -->
+  <div class="container">
+    <!-- 個人照片 -->
+    <div class="profile-pic" id="profilePic">
+      <img src="so.jpg" alt="個人照片" class="profile-pic">
+    </div>
+
+    <!-- 個人資料 -->
+    <div class="content">
+      <h1>關於許元柔</h1>
+      <p>來自雲林，家住台灣最西邊的海邊，但對海鮮過敏也不太會游泳</p>
+
+      <h2>成分表</h2>
+      <table>
+        <tr>
+          <th>項目</th>
+          <th>說明</th>
+        </tr>
+        <tr>
+          <td>營養成分</td>
+          <td>水（H₂O）60%、蛋白質16%、脂肪15%、礦物質（如鈣、磷等）7%、碳18%、氧65%、氫10%、氮3%、其他微量元素＜1%、隨時會出竅的靈魂0.035%(21克)</td>
+        </tr>
+        <tr>
+          <td>內容物</td>
+          <td><a id="showHobbiesBtn">組成"我" 點擊</a></td>
+        </tr>
+        <tr>
+          <td>產地</td>
+          <td>雲林．最西邊</td>
+        </tr>
+        <tr>
+          <td>注意事項</td>
+          <td>需冷藏（沒有冷氣會壞掉）</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- 簡單名片 -->
+  <div class="simple-card" id="simpleCard">
+    <button class="card-close" id="cardCloseBtn">×</button>
+    <h3></h3>
+    <p>來一根嗎</p>
+  </div>
+
+  <!-- 興趣展示視窗 -->
+  <div class="modal" id="hobbiesModal">
+    <div class="modal-content">
+      <button class="close-btn" id="modalCloseBtn">×</button>
+      <h2>成分介紹</h2>
+      <p></p>
+      
+      <!-- 選單 -->
+      <div class="tabs">
+        <button class="tab-btn active" data-tab="anime">動漫</button>
+        <button class="tab-btn" data-tab="music">音樂</button>
+        <button class="tab-btn" data-tab="comic">漫畫</button>
+      </div>
+
+      <!-- 動漫內容 -->
+      <div id="anime" class="tab-content active">
+        <h3>動漫</h3>
+        <p>銀魂</p>
+        <div class="hobby-grid">
+          <div class="hobby-card" data-type="anime" data-category="action">
+            <div class="hobby-image">
+              <img src="jo.jpg" alt="惡搞" onerror="this.style.display='none'; this.parentNode.innerHTML='圖片'">
+            </div>
+            <div class="hobby-title">對這個是銀魂</div>
+            <div class="hobby-description"></div>
+          </div>
+          <div class="hobby-card" data-type="anime" data-category="slice">
+            <div class="hobby-image">
+              <img src="ko.jpg" alt="惡搞" onerror="this.style.display='none'; this.parentNode.innerHTML='圖片'">
+            </div>
+            <div class="hobby-title">對這個也是銀魂</div>
+            <div class="hobby-description"></div>
+          </div>
+          <div class="hobby-card" data-type="anime" data-category="mystery">
+            <div class="hobby-image">
+              <img src="no.jpg" alt="惡搞" onerror="this.style.display='none'; this.parentNode.innerHTML='圖片'">
+            </div>
+            <div class="hobby-title">還是銀魂喔</div>
+            <div class="hobby-description"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 音樂內容 -->
+      <div id="music" class="tab-content">
+        <h3>歌手</h3>
+        <p>R&B/Jazz</p>
+        <div class="hobby-grid">
+          <div class="hobby-card" data-type="music" data-category="pop">
+            <div class="hobby-image">
+              <img src="sza.png" alt="音樂" onerror="this.style.display='none'; this.parentNode.innerHTML='圖片'">
+            </div>
+            <div class="hobby-title">SZA</div>
+            <div class="hobby-description"> BMF</div>
+          </div>
+          <div class="hobby-card" data-type="music" data-category="indie">
+            <div class="hobby-image">
+              <img src="wk.png" alt="音樂" onerror="this.style.display='none'; this.parentNode.innerHTML='圖片'">
+            </div>
+            <div class="hobby-title">The Weeknd</div>
+            <div class="hobby-description"></div>
+          </div>
+          <div class="hobby-card" data-type="music" data-category="classical">
+            <div class="hobby-image">
+              <img src="tyler.png" alt="音樂" onerror="this.style.display='none'; this.parentNode.innerHTML='圖片'">
+            </div>
+            <div class="hobby-title">Tyler, The Creator</div>
+            <div class="hobby-description"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 漫畫內容 -->
+      <div id="comic" class="tab-content">
+        <h3>漫畫</h3>
+        <p></p>
+        <div class="hobby-grid">
+          <div class="hobby-card" data-type="comic" data-category="shonen">
+            <div class="hobby-image">
+              <img src="bu.jpg" alt="少年漫畫" onerror="this.style.display='none'; this.parentNode.innerHTML='圖片'">
+            </div>
+            <div class="hobby-title">晚安咘咘</div>
+            <div class="hobby-description"></div>
+          </div>
+          <div class="hobby-card" data-type="comic" data-category="seinen">
+            <div class="hobby-image">
+              <img src="fire.jpg" alt="青年漫畫" onerror="this.style.display='none'; this.parentNode.innerHTML='圖片'">
+            </div>
+            <div class="hobby-title">炎拳</div>
+            <div class="hobby-description"></div>
+          </div>
+          <div class="hobby-card" data-type="comic" data-category="slice">
+            <div class="hobby-image">
+              <img src="j.jpg" alt="生活漫畫" onerror="this.style.display='none'; this.parentNode.innerHTML='圖片'">
+            </div>
+            <div class="hobby-title">富江</div>
+            <div class="hobby-description"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 通知訊息 -->
+  <div class="notification" id="notification"></div>
+
+  <script>
+    // JavaScript 部分保持不變
+    var hobbiesData = {
+      anime: {
+        action: "替身亂入",
+        slice: "輸贏",
+        mystery: "多拉A?夢?"
+      },
+      music: {
+        pop: "可以困我一輩子",
+        indie: "沒有理由",
+        classical: "live session超鬼"
+      },
+      comic: {
+        shonen: "黑色幽默呱呱",
+        seinen: "對他使用炎拳吧",
+        slice: "女王富江"
+      },
+      philosophy: {
+        existence: "我思故我在 - 笛卡兒的名言讓我思考自我存在的證明。存在先於本質，我們要為自己的選擇負責。",
+        ethics: "最大的善是追求智慧 - 蘇格拉底教會我持續學習的重要。道德不是絕對的，而是需要不斷思辨的。",
+        mind: "心靈與身體的關係一直是我思考的課題。意識是如何產生的？這個問題讓我著迷。"
+      }
+    };
+
+    var profilePic = document.getElementById('profilePic');
+    var showHobbiesBtn = document.getElementById('showHobbiesBtn');
+    var simpleCard = document.getElementById('simpleCard');
+    var cardCloseBtn = document.getElementById('cardCloseBtn');
+    var hobbiesModal = document.getElementById('hobbiesModal');
+    var modalCloseBtn = document.getElementById('modalCloseBtn');
+    var notification = document.getElementById('notification');
+    var tabBtns = document.querySelectorAll('.tab-btn');
+    var hobbyCards = document.querySelectorAll('.hobby-card');
+
+    function showSimpleCard() {
+      simpleCard.style.display = 'block';
+    }
+
+    function closeSimpleCard() {
+      simpleCard.style.display = 'none';
+    }
+
+    function showHobbies() {
+      hobbiesModal.style.display = 'block';
+    }
+
+    function closeHobbies() {
+      hobbiesModal.style.display = 'none';
+    }
+
+    function switchTab(tabName) {
+      var tabContents = document.querySelectorAll('.tab-content');
+      for (var i = 0; i < tabContents.length; i++) {
+        tabContents[i].classList.remove('active');
+      }
+      
+      for (var i = 0; i < tabBtns.length; i++) {
+        tabBtns[i].classList.remove('active');
+      }
+      
+      document.getElementById(tabName).classList.add('active');
+      
+      var targetBtn = document.querySelector('[data-tab="' + tabName + '"]');
+      targetBtn.classList.add('active');
+    }
+
+    function showNotification(message) {
+      notification.textContent = message;
+      notification.style.display = 'block';
+      
+      setTimeout(function() {
+        notification.style.display = 'none';
+      }, 3000);
+    }
+
+    function handleHobbyCardClick(type, category) {
+      var message = hobbiesData[type][category];
+      showNotification(message);
+    }
+
+    profilePic.addEventListener('click', showSimpleCard);
+    showHobbiesBtn.addEventListener('click', showHobbies);
+    cardCloseBtn.addEventListener('click', closeSimpleCard);
+    modalCloseBtn.addEventListener('click', closeHobbies);
+
+    for (var i = 0; i < tabBtns.length; i++) {
+      tabBtns[i].addEventListener('click', function() {
+        var tabName = this.getAttribute('data-tab');
+        switchTab(tabName);
+      });
+    }
+
+    for (var i = 0; i < hobbyCards.length; i++) {
+      hobbyCards[i].addEventListener('click', function() {
+        var type = this.getAttribute('data-type');
+        var category = this.getAttribute('data-category');
+        handleHobbyCardClick(type, category);
+      });
+    }
+
+    window.addEventListener('click', function(event) {
+      if (event.target === hobbiesModal) {
+        closeHobbies();
+      }
+      if (event.target === simpleCard) {
+        closeSimpleCard();
+      }
+    });
+
+    document.addEventListener('keydown', function(event) {
+      if (event.key === 'Escape') {
+        closeHobbies();
+        closeSimpleCard();
+      }
+    });
+  </script>
+</body>
+</html>
